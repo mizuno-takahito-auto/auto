@@ -34,6 +34,7 @@ jobs:
 
       - name: docker 環境構築
         run: |
+          cat /etc/os-release
           source /etc/profile
           sudo dnf install docker
           mkdir -p ~/.docker/cli-plugins
