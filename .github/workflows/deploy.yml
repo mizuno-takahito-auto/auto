@@ -20,6 +20,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::350783092862:role/mizuno-takahito-auto  # Organization Secretで登録したARN
+          aws-region: ap-northeast-1
           
       - name: Login to ECR
         run: |
