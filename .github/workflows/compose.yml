@@ -1,5 +1,5 @@
 services:
-　frontend:
-    image: httpd:2.4
-    ports:
-      - "80:80"
+ frontend:
+  image: httpd:2.4
+  ports:
+   - "80:80"
