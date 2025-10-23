@@ -34,6 +34,7 @@ jobs:
 
       - name: docker 環境構築
         run: |
+          source /etc/profile
           sudo dnf install docker
           mkdir -p ~/.docker/cli-plugins
           curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
