@@ -1,0 +1,39 @@
+name: CI/CD WordPress
+
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされたときに実行
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write         # OIDC用
+      contents: read          # コードチェックアウト用
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # Organization Secretで登録したARN
+          aws-region: ap-northeast-1
+
+      - name: Login to ECR
+        run: |
+          aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 123456789012.dkr.ecr.ap-northeast-1.amazonaws.com
+
+      - name: Build Docker image
+        run: docker build -t wordpress-app .
+
+      - name: Push Docker image
+        run: |
+          docker tag wordpress-app:latest 123456789012.dkr.ecr.ap-northeast-1.amazonaws.com/wordpress-app:latest
+          docker push 123456789012.dkr.ecr.ap-northeast-1.amazonaws.com/wordpress-app:latest
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service --cluster wordpress-cluster --service wordpress-service --force-new-deployment
