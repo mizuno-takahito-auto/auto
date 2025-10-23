@@ -30,16 +30,14 @@ jobs:
 
       - name: SSH to my instance
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129 \ "source /etc/profile "
-
-      - name: docker 環境構築
-        run: |
-          cat /etc/os-release
-          sudo dnf install docker -y
-          mkdir -p ~/.docker/cli-plugins
-          curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-          chmod +x ~/.docker/cli-plugins/docker-compose
-          systemctl start docker
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129 << 'EOF'
+             cat /etc/os-release
+            sudo dnf install docker -y
+            mkdir -p ~/.docker/cli-plugins
+            curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+            chmod +x ~/.docker/cli-plugins/docker-compose
+            systemctl start docker
+          EOF
 
 #      - name: Build WEB Docker image
 #        run: docker build -t apache ./frontend
