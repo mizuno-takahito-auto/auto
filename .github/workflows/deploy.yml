@@ -32,14 +32,23 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129
 
-      - name: Build WEB Docker image
-        run: docker build -t apache ./frontend
+#      - name: Build WEB Docker image
+#        run: docker build -t apache ./frontend
 
-      - name: Build AP Docker image
-        run: docker build -t tomcat ./backend
+#      - name: Build AP Docker image
+#        run: docker build -t tomcat ./backend
         
-      - name: Build DB Docker image
-        run: docker build -t mariadb ./database
+#      - name: Build DB Docker image
+#        run: docker build -t mariadb ./database
+
+      - name: down container
+        run: docker compose down --rmi all
+
+      - name: build container
+        run: docker compose up -d --build
+         
+
+
 
 #      - name: Push Docker image
 #        run: |
