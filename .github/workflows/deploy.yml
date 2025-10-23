@@ -30,8 +30,7 @@ jobs:
 
       - name: SSH to my instance
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129
-          source /etc/profile
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129 \ "source /etc/profile && sudo dnf install docker -y"
 
       - name: docker 環境構築
         run: |
