@@ -30,7 +30,7 @@ jobs:
 
       - name: SSH to my instance
         run: |
-          ssh -i ~/.ssh/id_rsa ec2-user@35.87.64.129
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ec2-user@35.87.64.129
 
       - name: Build WEB Docker image
         run: docker build -t apache ./frontend
