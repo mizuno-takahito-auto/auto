@@ -37,6 +37,8 @@ jobs:
             curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
             chmod +x ~/.docker/cli-plugins/docker-compose
             sudo systemctl start docker
+            sudo docker compose down --rmi all
+            sudo docker compose up -d --build
           EOF
 
 #      - name: Build WEB Docker image
@@ -48,11 +50,11 @@ jobs:
 #      - name: Build DB Docker image
 #        run: docker build -t mariadb ./database
 
-      - name: down container
-        run: docker compose down --rmi all
+#      - name: down container
+#        run: docker compose down --rmi all
 
-      - name: build container
-        run: docker compose up -d --build
+#      - name: build container
+#        run: docker compose up -d --build
          
 
 
