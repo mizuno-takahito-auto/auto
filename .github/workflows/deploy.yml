@@ -26,8 +26,14 @@ jobs:
         run: |
           aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 350783092862.dkr.ecr.us-west-2.amazonaws.com
 
-      - name: Build Docker image
-        run: docker build -t wordpress-app .
+      - name: Build WEB Docker image
+        run: docker build -t apache .
+
+      - name: Build AP Docker image
+        run: docker build -t tomcat .
+        
+      - name: Build DB Docker image
+        run: docker build -t mariadb .   
 
 #      - name: Push Docker image
 #        run: |
